@@ -1,41 +1,25 @@
 name: Continuous Integration
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  push: { branches: [ main ] }
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js 18 (npm 9)
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '18'      # ensures npm >= 8
-          check-latest: true
-
-      - name: Verify npm version
-        run: npm -v
-
-      - name: Clean install dependencies
-        run: npm ci
-
-      - name: Run lint (if available)
-        run: npm run lint || echo "No lint script defined"
-
-      - name: Run tests (if available)
-        run: npm test || echo "No test script defined"
-
-      - name: Upload artifacts (logs or test reports)
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run lint || echo "No lint script defined"
+      - run: npm test || echo "No test script defined"
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: ci-logs
+          name: test-results
           path: |
             reports/
-            logs/
+            coverage/
