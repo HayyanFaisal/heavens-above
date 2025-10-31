@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "friday"
-      time: "20:05" # 3:00 PM UTC = 8:00 PM PKT
+      time: "15:00" # 3:00 PM UTC = 8:00 PM PKT
       timezone: "Asia/Karachi"
     open-pull-requests-limit: 5
     commit-message:
