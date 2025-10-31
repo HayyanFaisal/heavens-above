@@ -1,19 +1,15 @@
 name: Documentation Deployment
-
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'docs/**'
-      - '*.md'
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
+  deploy-docs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -21,16 +17,13 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Build Documentation
+      - name: Build documentation
         run: |
           mkdir -p docs_build
-          mkdir -p docs_build/docs
-          npx markdown-to-html-cli docs/index.md -o docs_build/docs/index.html
-          echo "Documentation build complete"
-
+          npx markdown-to-html-cli docs/index.md -o docs_build/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
