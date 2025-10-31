@@ -1,11 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 
-// Log directory
 const logDir = path.join(__dirname, "../logs");
 if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
 
-const logFile = path.join(logDir, `maintenance-${new Date().toISOString()}.log`);
+const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+const logFile = path.join(logDir, `maintenance-${timestamp}.log`);
 
 function performMaintenance() {
   const time = new Date().toLocaleString();
