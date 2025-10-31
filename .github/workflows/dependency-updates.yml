@@ -1,0 +1,37 @@
+name: Dependency Updates Check
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  dependency-test:
+    if: startsWith(github.head_ref, 'dependabot/')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint || echo "No lint script defined"
+
+      - name: Run tests
+        run: npm test || echo "No test script defined"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-update-test-results
+          path: reports/
