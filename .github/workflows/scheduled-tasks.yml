@@ -1,0 +1,36 @@
+name: Scheduled Maintenance Tasks
+
+# Run daily at midnight
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:   # allows manual trigger
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run scheduled maintenance script
+        run: |
+          echo "Starting scheduled maintenance..."
+          node scripts/maintenance.js
+          echo "Maintenance completed successfully!"
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-logs
+          path: logs/
