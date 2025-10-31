@@ -23,7 +23,9 @@ jobs:
       - name: Build documentation
         run: |
           mkdir -p docs_build
-          npx marked -i docs/index.md -o docs_build/index.html
+          echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Heavens Above Docs</title><style>body{font-family:sans-serif;max-width:800px;margin:40px auto;line-height:1.6;}pre{background:#f6f6f6;padding:10px;border-radius:8px;}</style></head><body>' > docs_build/index.html
+          npx marked -i docs/index.md >> docs_build/index.html
+          echo '</body></html>' >> docs_build/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
