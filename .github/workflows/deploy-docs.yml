@@ -23,7 +23,7 @@ jobs:
       - name: Build documentation
         run: |
           mkdir -p docs_build
-          npx markdown-to-html-cli docs/index.md --output docs_build/
+          npx markdown-cli docs/index.md -o docs_build/index.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
