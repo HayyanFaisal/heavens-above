@@ -27,8 +27,9 @@ jobs:
       - name: Build Documentation
         run: |
           mkdir -p docs_build
-          npx markdown-to-html docs/*.md -o docs_build/
+          npx markdown-to-html-cli docs/index.md -o docs_build/index.html
           echo "Documentation build complete"
+
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
