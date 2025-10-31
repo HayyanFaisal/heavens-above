@@ -1,0 +1,17 @@
+# Heavens Above – Satellite Tracker
+
+## Overview
+This project scrapes and analyzes satellite transit information from the Heavens Above website using Node.js.
+
+## Features
+- Web scraping using **cheerio** and **request**
+- Continuous Integration and Deployment via **GitHub Actions**
+- Automated documentation deployment via **GitHub Pages**
+
+## How to Run Locally
+1. Clone the repository  
+   ```bash
+   git clone https://github.com/HayyanFaisal/heavens-above.git
+   cd heavens-above
+   npm install
+   node run.js
