@@ -27,7 +27,8 @@ jobs:
       - name: Build Documentation
         run: |
           mkdir -p docs_build
-          npx markdown-to-html-cli docs/index.md -o docs_build/index.html
+          mkdir -p docs_build/docs
+          npx markdown-to-html-cli docs/index.md -o docs_build/docs/index.html
           echo "Documentation build complete"
 
 
