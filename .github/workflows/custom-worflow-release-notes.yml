@@ -3,7 +3,8 @@ name: Generate Release Notes
 on:
   push:
     tags:
-      - "v*"       # Any tag starting with v (v1.0, v2.0.1, etc.)
+      - "v*" 
+  workflow_dispatch:
 
 jobs:
   release:
