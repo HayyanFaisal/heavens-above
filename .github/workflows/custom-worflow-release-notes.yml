@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create Release with Auto Notes
-        uses: softprops/action-gh-release@e7c1a8c464a920ccb31c7a589251a8f44d13a1d6
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}

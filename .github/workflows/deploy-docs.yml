@@ -29,7 +29,7 @@ jobs:
           echo '</body></html>' >> docs_build/index.html
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@4f73a1cc3d5a561c9d37f2f6d7fbdd0702fb8c64
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs_build
