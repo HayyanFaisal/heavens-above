@@ -1,0 +1,36 @@
+name: Documentation Deployment
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build documentation
+        run: |
+          mkdir -p docs_build
+          echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Heavens Above Docs</title><style>body{font-family:sans-serif;max-width:800px;margin:40px auto;line-height:1.6;}pre{background:#f6f6f6;padding:10px;border-radius:8px;}</style></head><body>' > docs_build/index.html
+          npx marked -i docs/index.md >> docs_build/index.html
+          echo '</body></html>' >> docs_build/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs_build
+          publish_branch: gh-pages
